@@ -1,47 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quiz del Profesor Bryan</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizz - Tecnología Digital</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="app">
-    <section id="start-screen" class="card start-card">
-      <div class="badge">💻 TECNOLOGÍA DIGITAL</div>
-      <h1>BIENVENIDO AL QUIZZ DE TU PROFESOR BRYAN ;D</h1>
-      <p class="subtitle">Demuestra cuánto sabes y consigue la mejor puntuación. 🔥</p>
-      <label for="player-name">Escribe tu nombre</label>
-      <input id="player-name" type="text" maxlength="40" placeholder="Tu nombre..." autocomplete="name">
-      <button id="start-btn" class="primary">🚀 COMENZAR QUIZZ</button>
-      <p id="start-error" class="error"></p>
-    </section>
+    <main class="quiz-container">
+        <!-- Pantalla de Inicio -->
+        <div id="start-screen" class="screen">
+            <h1>💻 QUIZZ DE TECNOLOGÍA DIGITAL</h1>
+            <p>Demuestra cuánto sabes sobre componentes, accesos directos y hardware 🔥</p>
+            <input type="text" id="username" placeholder="Escribe tu nombre..." />
+            <button id="start-btn" class="primary">🚀 COMENZAR QUIZZ</button>
+        </div>
 
-    <section id="quiz-screen" class="card hidden">
-      <div class="quiz-top">
-        <span id="player-label"></span>
-        <span id="progress-label"></span>
-      </div>
-      <div class="progress"><div id="progress-bar"></div></div>
-      <div class="question-number" id="question-number"></div>
-      <h2 id="question-text"></h2>
-      <div id="answers" class="answers"></div>
-      <button id="next-btn" class="primary hidden">Siguiente ➜</button>
-    </section>
+        <!-- Pantalla de Pregunta -->
+        <div id="quiz-screen" class="screen hidden">
+            <div class="header-info">
+                <span id="question-number">Pregunta 1</span>
+                <span id="score-live">Puntos: 0</span>
+            </div>
+            
+            <h2 id="question-title">Texto de la pregunta...</h2>
 
-    <section id="result-screen" class="card result-card hidden">
-      <div class="result-icon">🏆</div>
-      <h1>¡QUIZ COMPLETADO!</h1>
-      <p id="result-name"></p>
-      <div class="score"><span id="score-value">0</span><small id="score-total">/ 20</small></div>
-      <p id="result-percent" class="percent"></p>
-      <p id="result-message" class="result-message"></p>
-      <button id="restart-btn" class="primary">🔄 VOLVER A INTENTAR</button>
-      <p id="save-status" class="save-status"></p>
-    </section>
-  </main>
-  <footer>Quiz creado para Tecnología Digital • Profesor Bryan ;D</footer>
-  <script type="module" src="app.js"></script>
+            <!-- Contenedor para Opción Múltiple / Verdadero-Falso -->
+            <div id="options-container" class="options-grid"></div>
+
+            <!-- Contenedor para Arrastrar y Soltar (Disco Duro) -->
+            <div id="drag-drop-container" class="hidden">
+                <p class="drag-instructions">💡 Arrastra cada concepto desde abajo y suéltalo sobre su definición correspondiente:</p>
+                
+                <div id="drop-zones" class="drop-zones-list"></div>
+                
+                <p><strong>Conceptos disponibles:</strong></p>
+                <div id="drag-items" class="drag-items-box"></div>
+                
+                <button id="submit-drag-btn" class="primary" style="margin-top: 15px;">Validar Respuestas 🎯</button>
+            </div>
+        </div>
+
+        <!-- Pantalla de Resultados -->
+        <div id="result-screen" class="screen hidden">
+            <h2>🎉 ¡Quiz Finalizado!</h2>
+            <p id="result-user" class="percent"></p>
+            <p id="result-percent" class="percent"></p>
+            <p id="result-score"></p>
+            <button id="restart-btn" class="primary">🔄 VOLVER A INTENTAR</button>
+        </div>
+    </main>
+
+    <footer>Quiz creado para Tecnología Digital • Profesor Bryan ;D</footer>
+    
+    <script type="module" src="app.js"></script>
 </body>
 </html>
