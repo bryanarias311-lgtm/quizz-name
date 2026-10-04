@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Panel del Profesor Bryan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="app">
+  <section id="login-card" class="card">
+    <div class="badge">🔐 PANEL PRIVADO</div>
+    <h1>Panel del Profesor Bryan</h1>
+    <p class="subtitle">Inicia sesión para consultar los resultados.</p>
+    <label for="admin-email">Correo</label>
+    <input id="admin-email" type="email" autocomplete="username" placeholder="Tu correo">
+    <label for="admin-password">Contraseña</label>
+    <input id="admin-password" type="password" autocomplete="current-password" placeholder="Tu contraseña">
+    <button id="login-btn" class="primary">🔐 INICIAR SESIÓN</button>
+    <p id="login-error" class="error"></p>
+    <button class="link-btn" onclick="location.href='index.html'">Volver al quiz</button>
+  </section>
+
+  <section id="results-card" class="card hidden">
+    <div class="admin-head">
+      <div>
+        <div class="badge">👨‍🏫 RESULTADOS</div>
+        <h1>Resultados de tus estudiantes</h1>
+      </div>
+      <button id="logout-btn" class="secondary">Cerrar sesión</button>
+    </div>
+    <p id="admin-status" class="save-status"></p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Nombre</th><th>Puntos</th><th>%</th><th>Fecha</th></tr></thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
+    <button id="refresh-btn" class="primary">🔄 ACTUALIZAR</button>
+    <button class="link-btn" onclick="location.href='index.html'">Volver al quiz</button>
+  </section>
+</main>
+<footer>Panel privado • Quiz del Profesor Bryan ;D</footer>
+<script type="module" src="admin.js"></script>
+</body>
+</html>
