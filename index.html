@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quizz - Tecnología Digital</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Quizz del Profe Bryan - Tecnología Digital</title>
+    <link rel="stylesheet" href="style.css?v=2">
 </head>
 <body>
 
@@ -17,41 +17,44 @@
             </div>
 
             <h1>💻 TECNOLOGÍA DIGITAL</h1>
-            <p class="subtitle">Demuestra cuánto sabes sobre componentes, accesos directos y hardware 🔥</p>
+            <p class="subtitle">Guía Completa de Estudio: Preguntas y Ejercicios 🔥</p>
 
-            <input type="text" id="username" placeholder="Escribe tu nombre..." />
+            <input type="text" id="username" placeholder="Escribe tu nombre completo..." />
             <button id="start-btn" class="primary">🚀 COMENZAR QUIZZ</button>
         </div>
 
         <!-- PANTALLA DE PREGUNTAS -->
         <div id="quiz-screen" class="screen hidden">
             <div class="header-info">
-                <span id="player-name-display"></span>
-                <span id="question-tracker">Pregunta 1/20</span>
-                <span id="timer-display">⏱️ 20s</span>
+                <span id="question-number">Pregunta 1 de 39</span>
+                <span id="score-live">Puntos: 0</span>
             </div>
 
-            <h2 id="question-text">Cargando pregunta...</h2>
+            <h2 id="question-title">Cargando pregunta...</h2>
 
-            <!-- Para Selección Múltiple -->
+            <!-- Para Selección Múltiple y Verdadero/Falso -->
             <div id="options-container" class="options-grid"></div>
 
-            <!-- Para Arrastrar y Soltar (Drag & Drop) -->
+            <!-- Para Arrastrar y Soltar (Drag & Drop del Disco Duro) -->
             <div id="drag-drop-container" class="hidden">
-                <p class="drag-instructions">Arrastra los elementos hacia la zona o concepto correcto:</p>
+                <p class="drag-instructions">💡 Arrastra cada concepto desde abajo y suéltalo sobre su definición correspondiente (¡ojo, sobra 1!):</p>
+                
                 <div id="drop-zones" class="drop-zones-list"></div>
+                
+                <p style="margin-top: 15px; font-weight: bold;">Conceptos disponibles:</p>
                 <div id="drag-items" class="drag-items-box"></div>
+                
+                <button id="submit-drag-btn" class="primary" style="margin-top: 15px;">Validar Respuestas 🎯</button>
             </div>
-
-            <button id="next-btn" class="primary hidden">Siguiente Pregunta ➡️</button>
         </div>
 
         <!-- PANTALLA DE RESULTADOS -->
-        <div id="results-screen" class="screen hidden">
-            <h2>🏆 RESULTADOS FINALES</h2>
-            <p id="final-message"></p>
-            <p class="percent" id="final-score"></p>
-            <button id="restart-btn" class="primary">🔄 Intentar de nuevo</button>
+        <div id="result-screen" class="screen hidden">
+            <h2>🎉 ¡Quiz Finalizado!</h2>
+            <p id="result-user" class="percent"></p>
+            <p id="result-percent" class="percent"></p>
+            <p id="result-score" style="text-align: center; font-size: 1.1rem; color: #a0a0b0;"></p>
+            <button id="restart-btn" class="primary">🔄 VOLVER A INTENTAR</button>
         </div>
 
     </main>
@@ -60,6 +63,7 @@
         Quiz creado para Tecnología Digital • Profesor Bryan ;D
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Importamos app.js forzando actualización de versión -->
+    <script type="module" src="app.js?v=2"></script>
 </body>
 </html>
