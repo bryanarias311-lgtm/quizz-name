@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #121218;
+    background-color: #0b0b10;
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -14,21 +14,51 @@ body {
     align-items: center;
     min-height: 100vh;
     padding: 20px;
+    overflow-x: hidden;
 }
 
+/* --- BANNER DISCOTECA / NEÓN --- */
+.welcome-banner {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #ff007f;
+    border-radius: 12px;
+    padding: 12px 15px;
+    text-align: center;
+    animation: discoBorder 3s infinite linear, float 3s ease-in-out infinite;
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+}
+
+.disco-text {
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    animation: discoColor 2s infinite linear;
+}
+
+/* Subtítulo */
+.subtitle {
+    text-align: center;
+    color: #aaa;
+    font-size: 0.95rem;
+}
+
+/* Tarjeta Principal con Sombra de Neón */
 .quiz-container {
-    background: #1e1e2a;
+    background: #161622;
     border-radius: 16px;
     padding: 30px;
     max-width: 650px;
     width: 100%;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 20px rgba(108, 92, 231, 0.3);
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .screen {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    animation: slideUp 0.4s ease-out;
 }
 
 .hidden {
@@ -40,17 +70,26 @@ h1, h2 {
 }
 
 input[type="text"] {
-    padding: 12px 16px;
+    padding: 14px 16px;
     border-radius: 8px;
-    border: 1px solid #444;
-    background: #2a2a3a;
+    border: 2px solid #333;
+    background: #222230;
     color: #fff;
     font-size: 1rem;
     width: 100%;
+    outline: none;
+    transition: all 0.3s ease;
 }
 
+input[type="text"]:focus {
+    border-color: #00f0ff;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
+}
+
+/* Botón Principal */
 button.primary {
-    background: #6c5ce7;
+    background: linear-gradient(45deg, #7000ff, #ff007f);
+    background-size: 200% 200%;
     color: white;
     border: none;
     padding: 14px;
@@ -58,12 +97,19 @@ button.primary {
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: all 0.3s ease;
     width: 100%;
+    box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4);
+    animation: gradientShift 4s ease infinite;
 }
 
 button.primary:hover {
-    background: #5a4bcf;
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 6px 20px rgba(0, 240, 255, 0.7);
+}
+
+button.primary:active {
+    transform: translateY(0);
 }
 
 .header-info {
@@ -80,22 +126,31 @@ button.primary:hover {
     gap: 12px;
 }
 
+/* Botones de Opciones */
 .option-btn {
-    background: #2a2a3a;
+    background: #222230;
     color: #fff;
-    border: 1px solid #3a3a4a;
-    padding: 12px 16px;
+    border: 1px solid #3a3a50;
+    padding: 14px 18px;
     border-radius: 8px;
     text-align: left;
     cursor: pointer;
     font-size: 1rem;
-    transition: background 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .option-btn:hover {
-    background: #3a3a4a;
+    background: #2b2b3e;
+    border-color: #00f0ff;
+    transform: translateX(6px);
+    box-shadow: -4px 0 12px rgba(0, 240, 255, 0.4);
 }
 
+.option-btn:active {
+    transform: scale(0.98);
+}
+
+/* Estilos de Drag and Drop */
 .drag-instructions {
     font-size: 0.95rem;
     color: #a0a0b0;
@@ -108,7 +163,7 @@ button.primary:hover {
 }
 
 .drop-zone {
-    background: #2a2a3e;
+    background: #222230;
     border: 1px solid #444;
     padding: 10px 14px;
     border-radius: 8px;
@@ -118,21 +173,24 @@ button.primary:hover {
 }
 
 .drop-target {
-    background: #1f1f2e;
-    border: 2px dashed #6c5ce7;
+    background: #161622;
+    border: 2px dashed #ff007f;
     padding: 8px 12px;
     border-radius: 6px;
     min-width: 140px;
     text-align: center;
     color: #aaa;
     font-size: 0.9rem;
+    transition: all 0.3s ease;
 }
 
 .drop-target.filled {
-    background: #6c5ce7;
+    background: #ff007f;
     color: #fff;
     border-style: solid;
     font-weight: bold;
+    animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.8);
 }
 
 .drag-items-box {
@@ -140,7 +198,7 @@ button.primary:hover {
     flex-wrap: wrap;
     gap: 10px;
     padding: 12px;
-    background: #15151f;
+    background: #11111a;
     border-radius: 8px;
 }
 
@@ -152,10 +210,17 @@ button.primary:hover {
     cursor: grab;
     font-weight: bold;
     font-size: 0.9rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.drag-item:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 12px rgba(0, 184, 148, 0.8);
 }
 
 .drag-item:active {
     cursor: grabbing;
+    transform: scale(0.95);
 }
 
 .percent {
@@ -168,4 +233,61 @@ footer {
     margin-top: 20px;
     font-size: 0.85rem;
     color: #888;
+}
+
+/* ========================================= */
+/* --- KEYFRAMES (ANIMACIONES Y LUCES) --- */
+/* ========================================= */
+
+/* Efecto de cambio de color de texto (Luces) */
+@keyframes discoColor {
+    0%   { color: #ff007f; text-shadow: 0 0 8px #ff007f; }
+    25%  { color: #00f0ff; text-shadow: 0 0 8px #00f0ff; }
+    50%  { color: #00ff66; text-shadow: 0 0 8px #00ff66; }
+    75%  { color: #ffeb3b; text-shadow: 0 0 8px #ffeb3b; }
+    100% { color: #ff007f; text-shadow: 0 0 8px #ff007f; }
+}
+
+/* Efecto Borde Neón Cambiante */
+@keyframes discoBorder {
+    0%   { border-color: #ff007f; box-shadow: 0 0 15px rgba(255, 0, 127, 0.6); }
+    33%  { border-color: #00f0ff; box-shadow: 0 0 15px rgba(0, 240, 255, 0.6); }
+    66%  { border-color: #00ff66; box-shadow: 0 0 15px rgba(0, 255, 102, 0.6); }
+    100% { border-color: #ff007f; box-shadow: 0 0 15px rgba(255, 0, 127, 0.6); }
+}
+
+/* Flotado suave hacia arriba y abajo */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Movimiento de gradiente en el botón */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pop {
+    0% { transform: scale(0.9); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
