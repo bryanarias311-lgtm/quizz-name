@@ -46,6 +46,7 @@ input[type="text"] {
     background: #2a2a3a;
     color: #fff;
     font-size: 1rem;
+    width: 100%;
 }
 
 button.primary {
@@ -58,6 +59,7 @@ button.primary {
     font-weight: bold;
     cursor: pointer;
     transition: background 0.2s ease;
+    width: 100%;
 }
 
 button.primary:hover {
@@ -94,7 +96,6 @@ button.primary:hover {
     background: #3a3a4a;
 }
 
-/* Estilos para Drag and Drop */
 .drag-instructions {
     font-size: 0.95rem;
     color: #a0a0b0;
