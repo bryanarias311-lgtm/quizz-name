@@ -1,68 +1,296 @@
-import { db } from "./firebase.js";
-import { addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// Preguntas basadas exclusivamente en la Guía Completa de Tecnología Digital proporcionada.
-const QUESTIONS = [
- {q:'¿Cuál es el botón principal del mouse en la configuración normal?',a:['Botón derecho','Botón izquierdo','La rueda','El botón central'],c:1},
- {q:'¿Qué hace normalmente la rueda del mouse?',a:['Apaga la computadora','Desplaza la página','Abre Configuración','Cambia el teclado'],c:1},
- {q:'¿Qué opción de Propiedades: Mouse permite hacer que el botón derecho sea el principal?',a:['Velocidad de doble clic','Punteros y opciones','Intercambiar botones primario y secundario','Rueda'],c:2},
- {q:'¿Qué unidad es la más pequeña y representa 0 o 1?',a:['Byte','KB','Bit','MB'],c:2},
- {q:'¿Cuántos bits forman un byte?',a:['2','4','8','16'],c:2},
- {q:'¿Qué componente procesa instrucciones y coordina las tareas?',a:['RAM','CPU','GPU','Disco duro'],c:1},
- {q:'¿Qué componente funciona como espacio temporal de trabajo y es volátil?',a:['RAM','Disco duro','Placa madre','Fuente de poder'],c:0},
- {q:'¿Qué componente guarda archivos y programas de forma permanente?',a:['RAM','CPU','Disco duro / SSD','Ventilador'],c:2},
- {q:'¿Qué componente conecta y permite la comunicación entre los componentes?',a:['GPU','Placa madre','RAM','Fuente de poder'],c:1},
- {q:'¿Qué componente procesa gráficos, imágenes y video?',a:['GPU','CPU','RAM','Placa madre'],c:0},
- {q:'¿Qué hace la fuente de poder?',a:['Guarda archivos','Procesa gráficos','Proporciona y distribuye energía eléctrica','Controla el cursor'],c:2},
- {q:'¿Cuál de estos es un periférico de entrada?',a:['Monitor','Impresora','Teclado','Parlantes'],c:2},
- {q:'¿Cuál de estos es un periférico de salida?',a:['Mouse','Micrófono','Monitor','Teclado'],c:2},
- {q:'¿Qué conector transmite video y audio digital?',a:['VGA','Ethernet','HDMI','Audio jack'],c:2},
- {q:'¿Qué conector se relaciona con video analógico y es más antiguo?',a:['USB','HDMI','VGA','Ethernet'],c:2},
- {q:'¿Qué conexión corresponde a red cableada?',a:['Ethernet','HDMI','VGA','USB'],c:0},
- {q:'¿Qué hace un firewall?',a:['Aumenta la RAM','Revisa el tráfico de red y aplica reglas de conexión','Guarda archivos permanentemente','Cambia el nombre de archivos'],c:1},
- {q:'¿Cuál es un ejemplo de software de aplicación?',a:['Sistema operativo','Controlador','Navegador','Utilidad del sistema'],c:2},
- {q:'Verdadero o falso: Backspace borra a la izquierda del cursor.',a:['Verdadero','Falso'],c:0},
- {q:'Verdadero o falso: Windows + L bloquea la computadora.',a:['Verdadero','Falso'],c:0},
- {q:'Verdadero o falso: Windows + E abre el Explorador de archivos.',a:['Verdadero','Falso'],c:0},
- {q:'Verdadero o falso: Windows + D muestra u oculta el escritorio.',a:['Verdadero','Falso'],c:0},
- {q:'Verdadero o falso: Win + I abre Configuración.',a:['Verdadero','Falso'],c:0},
- {q:'¿Qué tecla permite cambiar el nombre de un archivo o carpeta según la guía?',a:['F1','F2','F5','F12'],c:1},
- {q:'¿Dónde se encuentra normalmente la barra de tareas de Windows?',a:['En la parte superior','En el centro del monitor','En la parte inferior','Dentro del BIOS'],c:2}
+// COPIA AQUÍ TU CONFIGURACIÓN DE FIREBASE DE SIEMPRE
+const firebaseConfig = {
+    apiKey: "TU_API_KEY",
+    authDomain: "TU_PROJECT.firebaseapp.com",
+    projectId: "quizz-del-profe-bryan",
+    storageBucket: "TU_PROJECT.appspot.com",
+    messagingSenderId: "SENDER_ID",
+    appId: "APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// BANCO COMPLETO DE PREGUNTAS (GUÍA DE TECNOLOGÍA DIGITAL)
+const questions = [
+    // --- VERDADERO / FALSO ---
+    {
+        type: "vf",
+        question: "1. El protector de pantalla del monitor solo sirve para decorar.",
+        options: ["Verdadero", "Falso"],
+        correct: 1 // Falso
+    },
+    {
+        type: "vf",
+        question: "2. En la configuración del mouse, los usuarios zurdos pueden modificarla para mayor comodidad.",
+        options: ["Verdadero", "Falso"],
+        correct: 0 // Verdadero
+    },
+    {
+        type: "vf",
+        question: "3. La memoria RAM guarda los archivos de forma permanente aunque se apague la computadora.",
+        options: ["Verdadero", "Falso"],
+        correct: 1 // Falso
+    },
+    {
+        type: "vf",
+        question: "4. Un Firewall y un antivirus son exactamente lo mismo.",
+        options: ["Verdadero", "Falso"],
+        correct: 1 // Falso
+    },
+    {
+        type: "vf",
+        question: "5. Para usar los códigos ALT clásicos en el teclado numérico, normalmente se requiere tener Bloq Num (Num Lock) activado.",
+        options: ["Verdadero", "Falso"],
+        correct: 0 // Verdadero
+    },
+
+    // --- SELECCIÓN MÚLTIPLE ---
+    {
+        type: "multiple",
+        question: "6. ¿Qué componente procesa instrucciones y se considera el 'cerebro' de la PC?",
+        options: ["Placa Madre", "CPU", "RAM", "Fuente de Poder"],
+        correct: 1
+    },
+    {
+        type: "multiple",
+        question: "7. ¿Cuál es la función del Botón Derecho del mouse?",
+        options: ["Seleccionar y abrir con doble clic", "Abrir el menú contextual", "Desplazar la página arriba y abajo", "Cambiar la velocidad del puntero"],
+        correct: 1
+    },
+    {
+        type: "multiple",
+        question: "8. ¿Qué atajo de teclado abre directamente el Administrador de tareas?",
+        options: ["Ctrl + Alt + Supr", "Ctrl + Shift + Esc", "Win + R", "Ctrl + Alt + Del"],
+        correct: 1
+    },
+    {
+        type: "multiple",
+        question: "9. ¿Cuál es la combinación de teclas para bloquear la computadora inmediatamente?",
+        options: ["Win + D", "Win + E", "Win + L", "Win + A"],
+        correct: 2
+    },
+    {
+        type: "multiple",
+        question: "10. ¿Qué atajo muestra u oculta rápidamente el escritorio?",
+        options: ["Win + D", "Win + E", "Win + 1", "Win + R"],
+        correct: 0
+    },
+    {
+        type: "multiple",
+        question: "11. ¿Qué combinación abre la ventana de 'Ejecutar comando'?",
+        options: ["Win + E", "Win + R", "Win + A", "Ctrl + Shift + N"],
+        correct: 1
+    },
+    {
+        type: "multiple",
+        question: "12. ¿Cuál es el código Alt para escribir la vocal 'á' con tilde?",
+        options: ["Alt + 160", "Alt + 161", "Alt + 162", "Alt + 130"],
+        correct: 0
+    },
+    {
+        type: "multiple",
+        question: "13. ¿Cuál es la unidad de almacenamiento más pequeña (representa un 0 o un 1)?",
+        options: ["Byte", "Bit", "Kilobyte (KB)", "Megabyte (MB)"],
+        correct: 1
+    },
+    {
+        type: "multiple",
+        question: "14. ¿Cuántos Bytes conforman un Kilobyte (KB)?",
+        options: ["8", "1000", "1024", "512"],
+        correct: 2
+    },
+    {
+        type: "multiple",
+        question: "15. ¿Qué componente proporciona y distribuye la energía eléctrica a las partes internas?",
+        options: ["Placa Madre", "GPU", "Fuente de Poder", "Disipador"],
+        correct: 2
+    },
+    {
+        type: "multiple",
+        question: "16. ¿Qué puerto transmite video analógico y es un conector más antiguo?",
+        options: ["HDMI", "VGA", "Ethernet", "USB"],
+        correct: 1
+    },
+    {
+        type: "multiple",
+        question: "17. ¿Cuál de los siguientes es un periférico de Entrada?",
+        options: ["Impresora", "Monitor", "Micrófono", "Parlantes"],
+        correct: 2
+    },
+    {
+        type: "multiple",
+        question: "18. ¿Qué tecla te permite renombrar un archivo o carpeta seleccionada?",
+        options: ["F2", "F5", "Backspace", "Delete"],
+        correct: 0
+    },
+    {
+        type: "multiple",
+        question: "19. ¿En qué orden de importancia se estudian los 3 factores clave de una PC?",
+        options: ["1. RAM - 2. CPU - 3. Disco Duro", "1. CPU - 2. RAM - 3. Disco Duro", "1. Disco Duro - 2. CPU - 3. RAM", "1. CPU - 2. Disco Duro - 3. RAM"],
+        correct: 1
+    },
+
+    // --- ACTIVIDAD DE ARRASTRAR Y SOLTAR (EXCLUSIVA PARA PARTES DEL DISCO DURO) ---
+    {
+        type: "drag",
+        question: "20. Partes Internas del Disco Duro: Arrastra cada concepto a su definición exacta.",
+        items: ["Cabezal", "Cara", "Pista", "Plato magnético", "Cluster", "Cilindro"], // Sobra Cilindro
+        matches: [
+            { id: 1, text: "Parte que lee y escribe la información sobre las superficies de almacenamiento.", target: "Cabezal" },
+            { id: 2, text: "Cada superficie utilizable de un plato donde se puede grabar información.", target: "Cara" },
+            { id: 3, text: "Anillo circular de datos ubicado a una distancia fija del centro del plato.", target: "Pista" },
+            { id: 4, text: "Disco circular recubierto de material magnético que gira y almacena datos.", target: "Plato magnético" },
+            { id: 5, text: "Grupo de sectores que el sistema de archivos usa como unidad de asignación.", target: "Cluster" }
+        ]
+    }
 ];
 
-let current=0, score=0, player='', selected=false, quiz=[];
-const $=id=>document.getElementById(id);
-function shuffle(arr){return [...arr].sort(()=>Math.random()-.5)}
-function startQuiz(){
- player=$('player-name').value.trim();
- if(!player){$('start-error').textContent='Escribe tu nombre para comenzar.';return}
- $('start-error').textContent=''; current=0;score=0;selected=false;quiz=shuffle(QUESTIONS).slice(0,20);
- $('start-screen').classList.add('hidden');$('result-screen').classList.add('hidden');$('quiz-screen').classList.remove('hidden');
- $('player-label').textContent='👤 '+player; renderQuestion();
+let currentQuestionIndex = 0;
+let score = 0;
+let userName = "";
+
+// Elementos DOM
+const startScreen = document.getElementById("start-screen");
+const quizScreen = document.getElementById("quiz-screen");
+const resultScreen = document.getElementById("result-screen");
+const startBtn = document.getElementById("start-btn");
+const restartBtn = document.getElementById("restart-btn");
+const usernameInput = document.getElementById("username");
+const questionTitle = document.getElementById("question-title");
+const optionsContainer = document.getElementById("options-container");
+const dragDropContainer = document.getElementById("drag-drop-container");
+const dropZones = document.getElementById("drop-zones");
+const dragItems = document.getElementById("drag-items");
+const submitDragBtn = document.getElementById("submit-drag-btn");
+
+startBtn.addEventListener("click", () => {
+    userName = usernameInput.value.trim();
+    if (!userName) return alert("Por favor escribe tu nombre");
+    
+    startScreen.classList.add("hidden");
+    quizScreen.classList.remove("hidden");
+    loadQuestion();
+});
+
+function loadQuestion() {
+    resetState();
+    const q = questions[currentQuestionIndex];
+    document.getElementById("question-number").innerText = `Pregunta ${currentQuestionIndex + 1} de ${questions.length}`;
+    document.getElementById("score-live").innerText = `Puntos: ${score}`;
+    questionTitle.innerText = q.question;
+
+    if (q.type === "multiple" || q.type === "vf") {
+        optionsContainer.classList.remove("hidden");
+        q.options.forEach((opt, idx) => {
+            const btn = document.createElement("button");
+            btn.innerText = opt;
+            btn.className = "option-btn";
+            btn.onclick = () => selectOption(idx, q.correct);
+            optionsContainer.appendChild(btn);
+        });
+    } else if (q.type === "drag") {
+        dragDropContainer.classList.remove("hidden");
+        setupDragAndDrop(q);
+    }
 }
-function renderQuestion(){
- selected=false;$('next-btn').classList.add('hidden');const item=quiz[current];
- $('question-number').textContent='Pregunta '+(current+1);$('progress-label').textContent=(current+1)+' / '+quiz.length;
- $('progress-bar').style.width=((current)/quiz.length*100)+'%';$('question-text').textContent=item.q;
- const box=$('answers');box.innerHTML='';item.a.forEach((answer,i)=>{const b=document.createElement('button');b.className='answer';b.textContent=String.fromCharCode(65+i)+'. '+answer;b.onclick=()=>choose(i,b);box.appendChild(b)});
+
+function resetState() {
+    optionsContainer.innerHTML = "";
+    dropZones.innerHTML = "";
+    dragItems.innerHTML = "";
+    optionsContainer.classList.add("hidden");
+    dragDropContainer.classList.add("hidden");
 }
-function choose(i,btn){if(selected)return;selected=true;const item=quiz[current];document.querySelectorAll('.answer').forEach((b,n)=>{b.disabled=true;if(n===item.c)b.classList.add('correct')});if(i===item.c)score++;else btn.classList.add('wrong');$('next-btn').classList.remove('hidden')}
-function next(){if(!selected)return;if(current<quiz.length-1){current++;renderQuestion()}else finish()}
-async function finish(){
- $('quiz-screen').classList.add('hidden');$('result-screen').classList.remove('hidden');$('progress-bar').style.width='100%';
- const pct=Math.round(score/quiz.length*100);$('result-name').textContent=player;$('score-value').textContent=score;$('score-total').textContent=' / '+quiz.length;$('result-percent').textContent=pct+'%';
- $('result-message').textContent=pct>=90?'🔥 ¡Excelente trabajo!':pct>=70?'👏 ¡Muy bien! Sigue practicando.':pct>=50?'💪 Vas bien, pero puedes mejorar.':'📚 Repasa la guía y vuelve a intentarlo.';
- await saveResult({name:player,score,total:quiz.length,percent:pct});
+
+function selectOption(selected, correct) {
+    if (selected === correct) score += 2; // Cada pregunta directa vale 2 puntos
+    nextQuestion();
 }
-async function saveResult(data){
- $('save-status').textContent='Guardando resultado...';
- try {
-   await addDoc(collection(db,'results'),{...data,finishedAt:serverTimestamp()});
-   $('save-status').textContent='✅ Resultado guardado correctamente.';
- } catch(error) {
-   console.error(error);
-   $('save-status').textContent='⚠️ No se pudo guardar el resultado. Revisa la conexión con Firebase.';
- }
+
+function setupDragAndDrop(q) {
+    // Generar zonas donde soltar
+    q.matches.forEach(m => {
+        const zone = document.createElement("div");
+        zone.className = "drop-zone";
+        zone.dataset.target = m.target;
+        zone.innerHTML = `<p style="flex: 1; text-align: left; margin-right: 10px;">${m.text}</p><div class="drop-target" data-filled="">Arrastra aquí</div>`;
+        dropZones.appendChild(zone);
+    });
+
+    // Mezclar y mostrar los conceptos
+    const shuffledItems = [...q.items].sort(() => Math.random() - 0.5);
+    shuffledItems.forEach(item => {
+        const badge = document.createElement("div");
+        badge.className = "drag-item";
+        badge.draggable = true;
+        badge.innerText = item;
+        badge.addEventListener("dragstart", (e) => e.dataTransfer.setData("text/plain", item));
+        dragItems.appendChild(badge);
+    });
+
+    // Eventos para dropzones
+    document.querySelectorAll(".drop-target").forEach(target => {
+        target.addEventListener("dragover", e => e.preventDefault());
+        target.addEventListener("drop", e => {
+            e.preventDefault();
+            const text = e.dataTransfer.getData("text/plain");
+            target.innerText = text;
+            target.dataset.filled = text;
+            target.classList.add("filled");
+        });
+    });
+
+    submitDragBtn.onclick = () => {
+        let correctCount = 0;
+        document.querySelectorAll(".drop-zone").forEach(zone => {
+            const filled = zone.querySelector(".drop-target").dataset.filled;
+            if (filled === zone.dataset.target) {
+                correctCount++;
+            }
+        });
+        score += correctCount * 2; // Cada acierto del disco duro vale 2 puntos
+        nextQuestion();
+    };
 }
-$('start-btn').onclick=startQuiz;$('next-btn').onclick=next;$('restart-btn').onclick=()=>{$('result-screen').classList.add('hidden');$('start-screen').classList.remove('hidden');$('player-name').value='';$('save-status').textContent=''};
-$('player-name').addEventListener('keydown',e=>{if(e.key==='Enter')startQuiz()});
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+    } else {
+        finishQuiz();
+    }
+}
+
+async function finishQuiz() {
+    quizScreen.classList.add("hidden");
+    resultScreen.classList.remove("hidden");
+    
+    // Total de puntos posibles: 19 preguntas x 2 pts + 5 partes del disco x 2 pts = 48 pts
+    const totalPossible = 48; 
+    const percentage = Math.round((score / totalPossible) * 100);
+
+    document.getElementById("result-user").innerText = `Estudiante: ${userName}`;
+    document.getElementById("result-percent").innerText = `Porcentaje: ${percentage}%`;
+    document.getElementById("result-score").innerText = `Puntuación: ${score} / ${totalPossible} pts`;
+
+    // Guardar en Firestore
+    try {
+        await addDoc(collection(db, "resultados"), {
+            nombre: userName,
+            Puntuacion: score,
+            Porcentaje: percentage,
+            Total: totalPossible,
+            fecha: new Date()
+        });
+        console.log("Guardado en Firestore exitosamente");
+    } catch (e) {
+        console.error("Error guardando en Firestore: ", e);
+    }
+}
+
+restartBtn.addEventListener("click", () => location.reload());
