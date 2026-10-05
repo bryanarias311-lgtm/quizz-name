@@ -1,3 +1,170 @@
-*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:linear-gradient(135deg,#111827,#312e81 55%,#7c3aed);color:#fff;display:flex;flex-direction:column}.app{width:min(720px,92%);margin:auto;padding:32px 0}.card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:28px;padding:32px;box-shadow:0 25px 70px rgba(0,0,0,.3);animation:in .45s ease}.hidden{display:none!important}.start-card{text-align:center}.badge{display:inline-block;background:rgba(255,255,255,.14);padding:8px 14px;border-radius:999px;font-size:.82rem;font-weight:800;letter-spacing:.06em;margin-bottom:16px}h1{font-size:clamp(1.7rem,5vw,2.7rem);line-height:1.1;margin:8px 0 14px}.subtitle{opacity:.82;margin-bottom:28px}label{display:block;text-align:left;font-weight:700;margin-bottom:8px}input{width:100%;padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.2);color:#fff;font-size:1rem;outline:none;margin-bottom:14px}input::placeholder{color:rgba(255,255,255,.55)}input:focus{border-color:#fff}.primary{width:100%;border:0;border-radius:14px;padding:16px 18px;font-size:1rem;font-weight:900;cursor:pointer;background:#fff;color:#312e81;transition:.2s}.primary:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,.22)}.error{min-height:22px;color:#fecaca;font-weight:700}.quiz-top{display:flex;justify-content:space-between;gap:10px;font-weight:800;font-size:.9rem;opacity:.9}.progress{height:9px;background:rgba(255,255,255,.15);border-radius:99px;margin:14px 0 28px;overflow:hidden}.progress div{height:100%;width:0;background:#fff;border-radius:99px;transition:width .3s}.question-number{font-size:.82rem;font-weight:900;opacity:.7;text-transform:uppercase;letter-spacing:.08em}h2{font-size:clamp(1.35rem,4vw,1.85rem);line-height:1.25;margin:10px 0 22px}.answers{display:grid;gap:12px}.answer{padding:16px;border-radius:15px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;text-align:left;font-size:1rem;font-weight:700;cursor:pointer;transition:.2s}.answer:hover{background:rgba(255,255,255,.16);transform:translateY(-1px)}.answer.correct{background:rgba(34,197,94,.28);border-color:#86efac}.answer.wrong{background:rgba(239,68,68,.28);border-color:#fca5a5}.answer:disabled{cursor:default}.result-card{text-align:center}.result-icon{font-size:4rem}.score{font-size:4.5rem;font-weight:1000;margin:15px 0}.score small{font-size:1.8rem;opacity:.6}.percent{font-size:1.5rem;font-weight:900}.result-message{font-size:1.1rem;opacity:.9;margin:20px 0 28px}.save-status{font-size:.82rem;opacity:.7;margin-top:16px}footer{text-align:center;padding:18px;opacity:.6;font-size:.78rem}@keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}@media(max-width:520px){.app{padding:18px 0}.card{padding:22px;border-radius:22px}}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-.admin-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.secondary,.link-btn{border:0;border-radius:12px;padding:10px 14px;cursor:pointer}.secondary{background:#ececf5}.link-btn{background:transparent;color:#5b5bd6;margin-top:10px}.table-wrap{overflow:auto;margin:20px 0}.table-wrap table{width:100%;border-collapse:collapse;min-width:520px}.table-wrap th,.table-wrap td{padding:12px;border-bottom:1px solid #ddd;text-align:left}.table-wrap th{font-weight:800}.card label{display:block;margin-top:12px;margin-bottom:6px}.card input{box-sizing:border-box;width:100%;padding:12px;border:1px solid #ccc;border-radius:12px;margin-bottom:8px}.hidden{display:none!important}@media(max-width:600px){.admin-head{flex-direction:column}.secondary{width:100%}}
+body {
+    background-color: #121218;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.quiz-container {
+    background: #1e1e2a;
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 650px;
+    width: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.screen {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+input[type="text"] {
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #2a2a3a;
+    color: #fff;
+    font-size: 1rem;
+}
+
+button.primary {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+button.primary:hover {
+    background: #5a4bcf;
+}
+
+.header-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #a0a0b0;
+    font-weight: bold;
+}
+
+.options-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option-btn {
+    background: #2a2a3a;
+    color: #fff;
+    border: 1px solid #3a3a4a;
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s ease;
+}
+
+.option-btn:hover {
+    background: #3a3a4a;
+}
+
+/* Estilos para Drag and Drop */
+.drag-instructions {
+    font-size: 0.95rem;
+    color: #a0a0b0;
+}
+
+.drop-zones-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.drop-zone {
+    background: #2a2a3e;
+    border: 1px solid #444;
+    padding: 10px 14px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.drop-target {
+    background: #1f1f2e;
+    border: 2px dashed #6c5ce7;
+    padding: 8px 12px;
+    border-radius: 6px;
+    min-width: 140px;
+    text-align: center;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.drop-target.filled {
+    background: #6c5ce7;
+    color: #fff;
+    border-style: solid;
+    font-weight: bold;
+}
+
+.drag-items-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px;
+    background: #15151f;
+    border-radius: 8px;
+}
+
+.drag-item {
+    background: #00b894;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: grab;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.drag-item:active {
+    cursor: grabbing;
+}
+
+.percent {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: #888;
+}
