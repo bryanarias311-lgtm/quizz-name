@@ -17,7 +17,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --- BANNER DISCOTECA / NEÓN --- */
+/* BANNER ANIMADO Y EFECTO DISCOTECA */
 .welcome-banner {
     background: rgba(255, 255, 255, 0.05);
     border: 2px solid #ff007f;
@@ -36,14 +36,13 @@ body {
     animation: discoColor 2s infinite linear;
 }
 
-/* Subtítulo */
 .subtitle {
     text-align: center;
     color: #aaa;
     font-size: 0.95rem;
 }
 
-/* Tarjeta Principal con Sombra de Neón */
+/* CONTENEDOR PRINCIPAL */
 .quiz-container {
     background: #161622;
     border-radius: 16px;
@@ -86,7 +85,7 @@ input[type="text"]:focus {
     box-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
 }
 
-/* Botón Principal */
+/* BOTONES */
 button.primary {
     background: linear-gradient(45deg, #7000ff, #ff007f);
     background-size: 200% 200%;
@@ -126,7 +125,6 @@ button.primary:active {
     gap: 12px;
 }
 
-/* Botones de Opciones */
 .option-btn {
     background: #222230;
     color: #fff;
@@ -150,7 +148,7 @@ button.primary:active {
     transform: scale(0.98);
 }
 
-/* Estilos de Drag and Drop */
+/* DRAG & DROP */
 .drag-instructions {
     font-size: 0.95rem;
     color: #a0a0b0;
@@ -200,6 +198,7 @@ button.primary:active {
     padding: 12px;
     background: #11111a;
     border-radius: 8px;
+    margin-top: 15px;
 }
 
 .drag-item {
@@ -235,11 +234,7 @@ footer {
     color: #888;
 }
 
-/* ========================================= */
-/* --- KEYFRAMES (ANIMACIONES Y LUCES) --- */
-/* ========================================= */
-
-/* Efecto de cambio de color de texto (Luces) */
+/* ANIMACIONES */
 @keyframes discoColor {
     0%   { color: #ff007f; text-shadow: 0 0 8px #ff007f; }
     25%  { color: #00f0ff; text-shadow: 0 0 8px #00f0ff; }
@@ -248,7 +243,6 @@ footer {
     100% { color: #ff007f; text-shadow: 0 0 8px #ff007f; }
 }
 
-/* Efecto Borde Neón Cambiante */
 @keyframes discoBorder {
     0%   { border-color: #ff007f; box-shadow: 0 0 15px rgba(255, 0, 127, 0.6); }
     33%  { border-color: #00f0ff; box-shadow: 0 0 15px rgba(0, 240, 255, 0.6); }
@@ -256,14 +250,12 @@ footer {
     100% { border-color: #ff007f; box-shadow: 0 0 15px rgba(255, 0, 127, 0.6); }
 }
 
-/* Flotado suave hacia arriba y abajo */
 @keyframes float {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-6px); }
     100% { transform: translateY(0px); }
 }
 
-/* Movimiento de gradiente en el botón */
 @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
